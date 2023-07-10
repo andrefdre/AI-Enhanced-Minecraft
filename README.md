@@ -104,7 +104,7 @@ Distributed under the GPL License. See `LICENSE.txt` for more information.
 
 André Cardoso - andref@ua.pt
 
-José Cação -
+José Cação - josemaria@ua.pt
 
 Project Link: [AI-Enchanced-Minecraft](https://github.com/andrefdre/AI-Enhanced-Minecraft)
 
