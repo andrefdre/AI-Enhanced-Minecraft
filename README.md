@@ -16,7 +16,7 @@
   <p align="center">
     An AI-driven player controller for Minecraft built on top of <a href="https://www.ros.org/" target="_blank">ROS2</a> and <a href="https://pytorch.org/" target="_blank">Pytorch</a>.
     <br />
-    <a href="https://github.com/andrefdre/Dora_the_mug_finder_SAVI/wiki"><strong>Explore the Wiki »</strong></a>
+    <a href="https://github.com/andrefdre/AI-Enhanced-Minecraft/wiki"><strong>Explore the Wiki »</strong></a>
     <br />
     <br />
     <a href="https://youtu.be/vULnTanHHmM">View Demo</a>
