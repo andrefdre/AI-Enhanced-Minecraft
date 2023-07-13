@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(ai-enchanced-minecraft-bringup)
+project(ai_enchanced_minecraft_bringup)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)

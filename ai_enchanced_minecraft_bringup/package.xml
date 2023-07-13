@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>ai-enchanced-minecraft-bringup</name>
+  <name>ai_enchanced_minecraft_bringup</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>This repository serves as a comprehensive resource for developers and Minecraft enthusiasts interested in exploring the capabilities of AI-controlled players within the game.</description>
   <maintainer email="andref@ua.pt">andre</maintainer>
-  <license>TODO: License declaration</license>
+  <license>GPL</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
