@@ -3,9 +3,12 @@
 <package format="3">
   <name>ai_enchanced_minecraft_bringup</name>
   <version>0.0.0</version>
-  <description>This repository serves as a comprehensive resource for developers and Minecraft enthusiasts interested in exploring the capabilities of AI-controlled players within the game.</description>
+  <description>TODO: Package description</description>
   <maintainer email="andref@ua.pt">andre</maintainer>
-  <license>GPL</license>
+  <license>TODO: License declaration</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
