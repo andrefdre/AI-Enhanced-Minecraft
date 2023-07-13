@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'publisher = ai_enhanced_minecraft_bringup.publisher:main',
             'listener = ai_enhanced_minecraft_bringup.listener:main',
+            'capture_keys = ai_enhanced_minecraft_bringup.capture_keys:main',
         ],
     },
 )
