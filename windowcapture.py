@@ -1,7 +1,6 @@
 import numpy as np
 import win32gui, win32ui, win32con
 
-
 class WindowCapture:
 
     # properties
@@ -14,11 +13,15 @@ class WindowCapture:
     offset_y = 0
 
     # constructor
-    def __init__(self, window_name):
+    def __init__(self, window_name = None):
         # find the handle for the window we want to capture
-        self.hwnd = win32gui.FindWindow(None, window_name)
-        if not self.hwnd:
-            raise Exception('Window not found: {}'.format(window_name))
+        if window_name is None:
+            self.hwnd = win32gui.GetDesktopWindow()
+        else:
+            self.hwnd = win32gui.FindWindow(None, window_name)
+            self.minimized = win32gui.IsIconic(self.hwnd)
+            if not self.hwnd:
+                raise Exception('Window not found: {}'.format(window_name))
 
     def get_window_size(self):
         # get the window size
@@ -42,8 +45,12 @@ class WindowCapture:
 
 
     def get_screenshot(self):
-
+        
+        if self.minimized:
+            win32gui.ShowWindow(self.hwnd, win32con.SW_RESTORE)
+            
         self.get_window_size()
+
 
         # get the window image data
         wDC = win32gui.GetWindowDC(self.hwnd)
@@ -77,13 +84,14 @@ class WindowCapture:
         # see the discussion here:
         # https://github.com/opencv/opencv/issues/14866#issuecomment-580207109
         img = np.ascontiguousarray(img)
-
+        
         return img
 
     # find the name of the window you're interested in.
     # once you have it, update window_capture()
     # https://stackoverflow.com/questions/55547940/how-to-get-a-list-of-the-name-of-every-open-window
-    def list_window_names(self):
+    @staticmethod
+    def list_window_names():
         def winEnumHandler(hwnd, ctx):
             if win32gui.IsWindowVisible(hwnd):
                 print(hex(hwnd), win32gui.GetWindowText(hwnd))
