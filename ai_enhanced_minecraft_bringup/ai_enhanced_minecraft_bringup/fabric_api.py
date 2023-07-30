@@ -18,7 +18,6 @@ class AI_API(Node):
     def timer_callback(self):
         try:
             response = requests.get('http://localhost:8080/player')
-            print(response.text)
             msg = String()
             msg.data = response.text
             self.publisher.publish(msg)
