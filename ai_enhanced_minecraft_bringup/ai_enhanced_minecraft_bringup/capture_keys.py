@@ -24,11 +24,12 @@ class KeyCaptureNode(Node):
 def main():
     rclpy.init()
     node = KeyCaptureNode()
-
+   
     print("Press any key to start capturing keys...")
     while True:
         listener = keyboard.Listener(on_press=node.on_press_partial)
         listener.start()
+
         rclpy.spin(node)
 
 
