@@ -21,9 +21,9 @@
     <br />
     <a href="https://youtu.be/vULnTanHHmM">View Demo</a>
     ·
-    <a href="https://github.com/andrefdre/Dora_the_mug_finder_SAVI/issues">Report Bug</a>
+    <a href="https://github.com/andrefdre/AI-Enhanced-Minecraft/issues">Report Bug</a>
     ·
-    <a href="https://github.com/andrefdre/Dora_the_mug_finder_SAVI/issues">Request Feature</a>
+    <a href="https://github.com/andrefdre/AI-Enhanced-Minecraft/issues">Request Feature</a>
   </p>
 
 <!-- ![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif) -->
