@@ -1,0 +1,9 @@
+bool w
+bool a
+bool s
+bool d
+bool space
+bool sprint
+bool crouch
+bool left_mouse
+bool right_mouse
