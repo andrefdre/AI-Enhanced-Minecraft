@@ -1,0 +1,11 @@
+bool w
+bool a
+bool s
+bool d
+bool jump
+bool sprint
+bool crouch
+bool left_mouse
+bool right_mouse
+float64 mouse_x
+float64 mouse_y

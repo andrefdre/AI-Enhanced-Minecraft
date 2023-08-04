@@ -20,8 +20,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'publisher = ai_enhanced_minecraft_bringup.publisher:main',
-            'listener = ai_enhanced_minecraft_bringup.listener:main',
+            'capture_keys = ai_enhanced_minecraft_bringup.capture_keys:main',
+            'fabric_api = ai_enhanced_minecraft_bringup.fabric_api:main',
+            'get_inventory = ai_enhanced_minecraft_bringup.get_inventory:main',
         ],
     },
 )
