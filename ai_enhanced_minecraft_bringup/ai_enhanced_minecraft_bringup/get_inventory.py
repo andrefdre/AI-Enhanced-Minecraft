@@ -3,6 +3,7 @@ import json
 import time
 from functools import partial
 import requests
+from ai_enhanced_minecraft_messages.msg import Inventory, Slot
 
 # ROS2 imports
 import rclpy
@@ -14,7 +15,7 @@ class GetInventory(Node):
     
     def __init__(self):
         super().__init__('get_inventory')
-        self.publisher = self.create_publisher(String, 'inventory', 10)
+        self.publisher = self.create_publisher(Slot, 'inventory', 10)
         self.timer = self.create_timer(0.1, self.timer_callback)
     
     def timer_callback(self):
@@ -25,13 +26,20 @@ class GetInventory(Node):
             # print("Error connecting to server")
             print(f"Received an error response: {response.status_code} - {response.text}")
 
-        read_strokes(response)
+        # New data received in json
+        data = response.json()
 
-def read_strokes(response):
-    
-    data = response.json()
+        # Instantiate the Slot message type
+        msg = Slot()
 
-    print(data)
+        for i in range(len(data)):
+            msg_2 = Inventory()
+            msg_2.item = data[f'Slot {i}']['item']
+            msg_2.amount = data[f'Slot {i}']['amount']
+            
+            msg.slots[i] = msg_2
+
+        self.publisher.publish(msg)
 
 
 def main():
