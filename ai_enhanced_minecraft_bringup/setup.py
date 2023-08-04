@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'capture_keys = ai_enhanced_minecraft_bringup.capture_keys:main',
             'fabric_api = ai_enhanced_minecraft_bringup.fabric_api:main',
+            'get_inventory = ai_enhanced_minecraft_bringup.get_inventory:main',
         ],
     },
 )
