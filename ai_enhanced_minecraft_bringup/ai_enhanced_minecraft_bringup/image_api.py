@@ -27,7 +27,7 @@ class Image_API(Node):
             response = requests.get('http://localhost:8070/image')
             self.image = response.content
         except:
-            print("Error connecting to server")
+            print(f"Received an error response: {response.status_code} - {response.text}")
 
         image_array = cv2.imdecode(np.frombuffer(self.image, np.uint8), cv2.IMREAD_COLOR)
         image_array = cv2.cvtColor(image_array, cv2.COLOR_BGR2RGB)
