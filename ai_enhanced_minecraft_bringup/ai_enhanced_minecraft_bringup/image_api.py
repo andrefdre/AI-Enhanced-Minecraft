@@ -11,8 +11,6 @@ from rclpy.node import Node
 from sensor_msgs.msg import Image # Image is the message type
 from cv_bridge import CvBridge # Package to convert between ROS and OpenCV Images
 
-from std_msgs.msg import String
-
 class Image_API(Node):
     def __init__(self):
         super().__init__('minecraft_api')
