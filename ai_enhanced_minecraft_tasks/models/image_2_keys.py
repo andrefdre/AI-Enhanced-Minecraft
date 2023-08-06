@@ -50,8 +50,7 @@ class Nvidia_Model(nn.Module):
         
         self.fc1 = nn.Linear(27456,100)
         self.fc2 = nn.Linear(100,50)
-        self.fc3= nn.Linear(50,10)
-        self.fc4= nn.Linear(10,1)
+        self.fc3= nn.Linear(50,11)
         self.relu = nn.ReLU()
         self.elu = nn.ELU()
         
@@ -78,11 +77,10 @@ class Nvidia_Model(nn.Module):
         out = self.relu(self.fc1(out))
         # print('fc1 out = ' + str(out.shape))
 
-        out = self.elu(self.fc2(out))
+        out = self.relu(self.fc2(out))
 
-        out = self.elu(self.fc3(out))
+        out = self.fc3(out)
 
-        out = self.fc4(out)
         # print('fc2 out = ' + str(out.shape))
         # exit(0)
         return out
