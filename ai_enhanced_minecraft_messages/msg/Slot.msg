@@ -1,0 +1,1 @@
+Inventory[36] slots

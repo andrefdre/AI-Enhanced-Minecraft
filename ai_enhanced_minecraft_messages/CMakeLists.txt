@@ -25,6 +25,8 @@ find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/KeyStrokes.msg"
+  "msg/Inventory.msg"
+  "msg/Slot.msg"
   )
   
 if(BUILD_TESTING)

@@ -15,7 +15,7 @@ class KeyCaptureNode(Node):
     
     def __init__(self):
         super().__init__('key_capture')
-        self.publisher = self.create_publisher(String, 'keys_pressed', 10)
+        self.publisher = self.create_publisher(KeyStrokes, 'keys_pressed', 10)
         self.timer = self.create_timer(0.1, self.timer_callback)
     
     def timer_callback(self):
@@ -26,7 +26,10 @@ class KeyCaptureNode(Node):
             # print("Error connecting to server")
             print(f"Received an error response: {response.status_code} - {response.text}")
 
-        read_strokes(response)
+        msg = read_strokes(response)
+        
+        self.publisher.publish(msg)
+
 
 def read_strokes(response):
     
@@ -45,7 +48,7 @@ def read_strokes(response):
     values.mouse_x = data['mouse_x_position']
     values.mouse_y = data['mouse_y_position']
 
-    print(values)
+    return values
 
 
 def main():
