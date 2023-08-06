@@ -13,11 +13,10 @@ from cv_bridge import CvBridge # Package to convert between ROS and OpenCV Image
 
 class Image_API(Node):
     def __init__(self):
-        super().__init__('minecraft_api')
+        super().__init__('image_api')
         self.publisher_ = self.create_publisher(Image, 'minecraft_frame', 10)
         self.timer = self.create_timer(0, self.timer_callback)
         self.image = None
-        self.window = cv2.namedWindow('image', cv2.WINDOW_NORMAL)
         self.bridge = CvBridge()
 
     def timer_callback(self):
@@ -31,9 +30,6 @@ class Image_API(Node):
         image_array = cv2.cvtColor(image_array, cv2.COLOR_BGR2RGB)
 
         self.publisher_.publish(self.bridge.cv2_to_imgmsg(image_array))
-        cv2.imshow("image", image_array)
-    
-        cv2.waitKey(1)
 
 def main():
     rclpy.init()
