@@ -20,7 +20,7 @@ class Actions_API(Node):
         try:
             response = requests.get('http://localhost:8070/player_actions')
         except:
-            print("Error connecting to server")
+            print(f"Received an error response: {response.status_code} - {response.text}")
 
         msg = Actions()
         msg.right_click = response.json()['Right_click']

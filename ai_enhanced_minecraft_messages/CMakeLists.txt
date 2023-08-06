@@ -26,10 +26,12 @@ find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Pose.msg"
   "msg/Actions.msg"
+  "msg/Inventory.msg"
+  "msg/Slot.msg"
   DEPENDENCIES 
   rosidl_default_generators
  )
-
+  
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
