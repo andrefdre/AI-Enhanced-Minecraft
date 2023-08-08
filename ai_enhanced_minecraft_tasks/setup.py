@@ -24,6 +24,7 @@ setup(
     entry_points={
         'console_scripts': [
             'generate_datasets = ai_enhanced_minecraft_tasks.generate_datasets:main',
+            'model_train = ai_enhanced_minecraft_tasks.model_train:main',
         ],
     },
 )

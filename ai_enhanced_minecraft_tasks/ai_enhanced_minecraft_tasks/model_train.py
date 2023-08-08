@@ -22,12 +22,13 @@ from torchvision import transforms
 from torch.nn import MSELoss
 from torchinfo import summary
 import yaml
+import os
 
 # Custom imports
-from src.utils import SaveGraph , SaveModel , LoadModel
-from src.visualization import DataVisualizer
-from src.dataset import Dataset
-from models.image_2_keys import Nvidia_Model
+from .src.utils import SaveGraph , SaveModel , LoadModel
+from .src.visualization import DataVisualizer
+from .src.dataset import Dataset
+from .models.image_2_keys import Nvidia_Model
 
 # Main code
 def main():
@@ -62,7 +63,7 @@ def main():
                         help='How many subprocesses to use for data loading. 0 means that the data will be loaded in the main process.')
     parser.add_argument('-pff', '--prefetch_factor', type=int, default=2, 
                         help='Number of batches loaded in advance by each worker')
-    parser.add_argument('-m', '--model', default='LSTM()', type=str,
+    parser.add_argument('-m', '--model', default='Nvidia_Model()', type=str,
                         help='Model to use [Nvidia_Model(), Rota_Model(), MobileNetV2(), InceptionV3(), MyVGG(), ResNet(), LSTM(), MyViT()]')
     parser.add_argument('-cs', '--crop_size', default=300, type=int,
                         help='Crop size of the image')
@@ -73,14 +74,15 @@ def main():
     args = vars(parser.parse_args(args=arglist))
 
     # General Path
-    files_path=os.environ.get('AUTOMEC_DATASETS')
+    files_path = str(os.environ.get('Minecraft_Path'))
+    
     # Image dataset paths
     dataset_path = f'{files_path}/datasets/{args["dataset_name"]}/'
-    columns = ['img_name','steering', 'velocity'] 
-    df = pd.read_csv(os.path.join(dataset_path, 'driving_log.csv'), names = columns)
+    columns = ['Image', 'right_click', 'left_click', 'jump_key', 'crouch_key', 'sprint_key', 'w', 'a', 's', 'd', 'mouse_x', 'mouse_y']
+    df = pd.read_csv(os.path.join(dataset_path, 'dataset_log.csv'), names = columns)
     df = df.sort_index()
 
-    del df["velocity"] # not in use, currently
+    # del df["velocity"] # not in use, currently
     df.head()
 
     # Read YAML file
@@ -92,6 +94,7 @@ def main():
     model_name = args["folder_name"]
     model_path = files_path + f'/models/{args["folder_name"]}/{args["folder_name"]}.pkl'
     folder_path =files_path + f'/models/{args["folder_name"]}'
+    
     # Checks if the models folder exists if not create
     if not os.path.exists(f'{files_path}/models'):
         os.makedirs(f'{files_path}/models') # Creates the folder
@@ -142,6 +145,7 @@ def main():
         shuffle = False
     else:
         shuffle = True
+        
     # Sample ony a few images for development
     #df = df[0:700]
     train_dataset,test_dataset = train_test_split(df,test_size=0.2)
