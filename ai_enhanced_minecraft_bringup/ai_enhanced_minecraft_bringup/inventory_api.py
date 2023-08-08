@@ -19,10 +19,16 @@ class GetInventory(Node):
         self.timer = self.create_timer(0.1, self.timer_callback)
     
     def timer_callback(self):
-        try:    
-            response = requests.get('http://localhost:8070/player_inv')
-        except:
-            print(f"Received an error response: {response.status_code} - {response.text}")
+        
+        while True:
+            
+            try:    
+                response = requests.get('http://localhost:8070/player_inv')
+                response.raise_for_status()
+                break
+            except:
+                print("Cannot retrieve info for the endpoint you're looking for. Retrying in 1 second.")
+                time.sleep(1)
 
         # New data received in json
         data = response.json()

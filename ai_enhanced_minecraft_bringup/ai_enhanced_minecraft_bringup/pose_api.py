@@ -2,6 +2,7 @@
 
 from functools import partial
 import requests
+import time 
 
 # ROS2 imports
 import rclpy
@@ -18,10 +19,16 @@ class Pose_API(Node):
         self.timer = self.create_timer(0, self.timer_callback)
 
     def timer_callback(self):
-        try:
-            response = requests.get('http://localhost:8070/player_positions')
-        except:
-            print(f"Received an error response: {response.status_code} - {response.text}")
+        
+        while True:
+            
+            try:    
+                response = requests.get('http://localhost:8070/player_positions')
+                response.raise_for_status()
+                break
+            except:
+                print("Cannot retrieve info for the endpoint you're looking for. Retrying in 1 second.")
+                time.sleep(1)
 
         msg = Pose()
         msg.x = response.json()['x']
