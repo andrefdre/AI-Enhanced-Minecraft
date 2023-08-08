@@ -18,6 +18,7 @@ import cv2
 import pandas as pd
 import yaml
 from PIL import Image as Image_pil
+from multiprocessing import Process
 
 # ROS2 imports
 import rclpy
@@ -40,9 +41,7 @@ class Generate_Dataset(Node):
         self.timer = self.create_timer(0.1, self.loop_callback)
 
         minecraft_path = os.environ.get('Minecraft_Path')
-        self.data_path = f'{minecraft_path}/datasets/' + "-" + datetime.now().strftime("%d-%m-%Hh%Mm%Ss")
-
-        node = ServiceClientNode()
+        self.data_path = f'{minecraft_path}/datasets/' + datetime.now().strftime("%d-%m-%Hh%Mm%Ss")
 
         # If the path does not exist, create it
         if not os.path.exists(self.data_path):
@@ -94,16 +93,8 @@ class Generate_Dataset(Node):
             exit(0)
 
         if key == ord('q'):
-            print("\n\nYou have pressed q[uit]: are you sure you want to close"
-                                " WITHOUT saving the dataset? (type 'yes' TO DISCARD the dataset,"
-                                " type 'no' or 'save' to SAVE the dataset): ")
-            confirmation = node.get_user_input()
-            if confirmation == "yes":
-                shutil.rmtree(self.data_path)
-                print("All done, exiting ROS...")
-            elif confirmation in {'no', 'save'}:
-                self.save_dataset(self.info_data, self.data_path, self.dataset_log)
-                exit(0)
+            exit(0)
+
 
         #TODO add condition to verify if the camera roated
         # This stops capturing images that don't add information to the network
@@ -130,6 +121,7 @@ class Generate_Dataset(Node):
         image_saved.save(self.data_path + '/IMG/' + image_name)
         self.counter += 1
         print(f'Image Saved: {self.counter}')
+
 
     # Callback Function to receive the cmd values
     def actionsMsgCallback(self , message):
