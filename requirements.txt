@@ -6,4 +6,4 @@ opencv_python==4.8.0.74
 pytest==4.6.9
 Requests==2.31.0
 setuptools==45.2.0
-torch==2.0.1
+
