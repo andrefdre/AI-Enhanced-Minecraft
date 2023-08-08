@@ -25,6 +25,7 @@ setup(
         'console_scripts': [
             'generate_datasets = ai_enhanced_minecraft_tasks.generate_datasets:main',
             'model_train = ai_enhanced_minecraft_tasks.model_train:main',
+            'create_statistics = ai_enhanced_minecraft_tasks.create_statistics:main',
         ],
     },
 )

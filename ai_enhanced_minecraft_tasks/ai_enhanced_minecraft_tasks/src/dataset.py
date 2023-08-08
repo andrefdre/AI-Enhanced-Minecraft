@@ -19,9 +19,9 @@ class Dataset(torch.utils.data.Dataset):
     def __init__(self,dataset,dataset_path, transform=None):
         # Image dataset paths
         images_path = dataset_path + 'IMG/'
-        self.image_filenames_original = images_path + dataset['img_name']
+        self.image_filenames_original = images_path + dataset['Image']
         self.image_filenames_original = self.image_filenames_original.values.tolist()
-        self.labels_original = dataset['steering'].values.tolist()
+        self.labels_original = dataset.values.tolist()
         self.num_images= len(self.image_filenames_original)
         self.image_width = 256
         self.image_height = 256
