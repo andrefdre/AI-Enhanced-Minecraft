@@ -13,7 +13,7 @@ class Nvidia_Model(nn.Module):
             # 3 input channels, 16 output depth, padding and stride
             nn.Conv2d(3,24,kernel_size=5,stride=2),
             # normalizes the batch data setting the average to 0 and std to 1
-            nn.BatchNorm2d(32),
+            nn.BatchNorm2d(24),
             nn.ReLU(),
             nn.MaxPool2d(2) # similar to image pyrdown, reduces size
         )
@@ -21,34 +21,34 @@ class Nvidia_Model(nn.Module):
         
         self.layer2 = nn.Sequential(
             nn.Conv2d(24,36, kernel_size=5 , stride=2),
-            nn.BatchNorm2d(64),
+            nn.BatchNorm2d(36),
             nn.ReLU(),
             #nn.MaxPool2d(2)
             )
         
         self.layer3 = nn.Sequential(
             nn.Conv2d(36,48, kernel_size=5, stride=2),
-            nn.BatchNorm2d(128),
+            nn.BatchNorm2d(48),
             nn.ReLU(),
             #nn.MaxPool2d(2)
         )
 
         self.layer4 = nn.Sequential(
             nn.Conv2d(48,64, kernel_size=3),
-            nn.BatchNorm2d(128),
+            nn.BatchNorm2d(64),
             nn.ReLU(),
             #nn.MaxPool2d(2)
         )
 
         self.layer5 = nn.Sequential(
             nn.Conv2d(64,64, kernel_size=3),
-            nn.BatchNorm2d(128),
+            nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.Flatten()
             #nn.MaxPool2d(2)
         )
         
-        self.fc1 = nn.Linear(27456,100)
+        self.fc1 = nn.Linear(9216,100)
         self.fc2 = nn.Linear(100,50)
         self.fc3= nn.Linear(50,11)
         self.relu = nn.ReLU()

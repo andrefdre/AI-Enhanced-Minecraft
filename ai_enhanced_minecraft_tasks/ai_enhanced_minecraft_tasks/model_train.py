@@ -19,7 +19,7 @@ from tqdm import tqdm
 from colorama import Fore, Style
 import torch
 from torchvision import transforms
-from torch.nn import MSELoss
+from torch.nn import MSELoss , CrossEntropyLoss
 from torchinfo import summary
 import yaml
 import os

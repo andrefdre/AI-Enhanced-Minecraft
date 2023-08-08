@@ -21,7 +21,8 @@ class Dataset(torch.utils.data.Dataset):
         images_path = dataset_path + 'IMG/'
         self.image_filenames_original = images_path + dataset['Image']
         self.image_filenames_original = self.image_filenames_original.values.tolist()
-        self.labels_original = dataset.values.tolist()
+        dataset = dataset.drop(columns=['Image'])
+        self.labels_original = dataset.replace({'True': 1, 'False': 0}).values.tolist()
         self.num_images= len(self.image_filenames_original)
         self.image_width = 256
         self.image_height = 256
@@ -30,7 +31,7 @@ class Dataset(torch.utils.data.Dataset):
     def __getitem__(self,index): # returns a specific x,y of the datasets
         # Get the image
         image = Image.open(self.image_filenames_original[index])
-        label = self.labels_original[index]
+        label = torch.tensor(self.labels_original[index])
         image = self.transforms(image)
 
         return image , label
