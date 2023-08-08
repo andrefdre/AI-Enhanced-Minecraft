@@ -93,6 +93,7 @@ class Generate_Dataset(Node):
             exit(0)
 
         if key == ord('q'):
+            os.rmdir(self.data_path)
             exit(0)
 
 
