@@ -14,7 +14,7 @@ class Actions_API(Node):
     def __init__(self):
         super().__init__('actions_api')
         self.publisher = self.create_publisher(Actions, 'actions', 10)
-        self.timer = self.create_timer(0, self.timer_callback)
+        self.timer = self.create_timer(0.1, self.timer_callback)
 
     def timer_callback(self):
         try:

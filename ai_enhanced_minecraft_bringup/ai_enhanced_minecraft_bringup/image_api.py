@@ -15,7 +15,7 @@ class Image_API(Node):
     def __init__(self):
         super().__init__('image_api')
         self.publisher_ = self.create_publisher(Image, 'minecraft_frame', 10)
-        self.timer = self.create_timer(0, self.timer_callback)
+        self.timer = self.create_timer(0.1, self.timer_callback)
         self.image = None
         self.bridge = CvBridge()
 

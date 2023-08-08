@@ -16,6 +16,8 @@ def generate_launch_description():
         Node(
             package='ai_enhanced_minecraft_tasks',
             executable='generate_datasets',
+            output='screen',
+            emulate_tty=True,
             parameters=[
                 {"image_topic": "/image_api/minecraft_frame"},
                 {"actions_topic": "/actions_api/actions"},

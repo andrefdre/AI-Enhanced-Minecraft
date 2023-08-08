@@ -15,7 +15,7 @@ class Pose_API(Node):
     def __init__(self):
         super().__init__('pose_api')
         self.publisher = self.create_publisher(Pose, 'pose', 10)
-        self.timer = self.create_timer(0, self.timer_callback)
+        self.timer = self.create_timer(0.1, self.timer_callback)
 
     def timer_callback(self):
         try:

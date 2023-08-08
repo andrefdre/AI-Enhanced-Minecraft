@@ -4,7 +4,7 @@
     Script for writing a dataset for training a Deep-learning model.
     The image is obtained from the topic specified in the parameter 'image_raw_topic'.
     The steering angle is obtained from the topic specified in the parameter 'twist_cmd_topic'.
-    The dataset is saved in the default path to the Automec folder set in the Environment variable.
+    The dataset is saved in the default path to the AI folder set in the Environment variable.
 """
 
 # Imports
@@ -22,7 +22,7 @@ from PIL import Image as Image_pil
 # ROS2 imports
 import rclpy
 from rclpy.node import Node
-from cv_bridge.core import CvBridge
+from cv_bridge import CvBridge
 from sensor_msgs.msg import Image # Image is the message type
 from ai_enhanced_minecraft_messages.msg import Actions
 
@@ -37,7 +37,7 @@ class Generate_Dataset(Node):
 
         self.publisher = self.create_subscription(Image, image_topic , self.imgRgbCallback, 10)
         self.publisher = self.create_subscription(Actions, actions_topic , self.actionsMsgCallback, 10)
-        self.timer = self.create_timer(0, self.loop_callback)
+        self.timer = self.create_timer(0.1, self.loop_callback)
 
         minecraft_path = os.environ.get('Minecraft_Path')
         self.data_path = f'{minecraft_path}/datasets/' + "-" + datetime.now().strftime("%d-%m-%Hh%Mm%Ss")
@@ -60,7 +60,7 @@ class Generate_Dataset(Node):
             )
         )
 
-        print(self.data_path)
+        print(f'Dataset will be saved at: {self.data_path}')
 
         self.win_name = 'Minecraft View'
         cv2.namedWindow(winname=self.win_name,flags=cv2.WINDOW_NORMAL)
@@ -76,15 +76,15 @@ class Generate_Dataset(Node):
             columns=['Image', 'right_click', 'left_click', 'jump_key', 'crouch_key', 'sprint_key', 'w', 'a', 's', 'd', 'mouse_x', 'mouse_y'])
 
     def loop_callback(self):
-
         if not self.begin_img:
             return
         
         if not self.begin_actions:
             return
-
+        
         cv2.imshow(self.win_name, self.img_rgb)
         key = cv2.waitKey(1)
+
         
         # save on shutdown...
         if key == ord('s'):  
@@ -101,6 +101,11 @@ class Generate_Dataset(Node):
             elif confirmation in {'no', 'save'}:
                 self.save_dataset(self.info_data, self.data_path, self.dataset_log)
                 exit(0)
+        
+        #TODO add condition to verify if the camera roated
+        # This stops capturing images that don't add information to the network
+        if self.actions.right_click == 0 and self.actions.left_click == 0 and self.actions.jump_key == 0 and self.actions.crouch_key == 0 and self.actions.sprint_key == 0 and self.actions.w_key == 0 and self.actions.a_key == 0 and self.actions.s_key == 0 and self.actions.d_key == 0:
+            return
 
         curr_time = datetime.now()
         image_name = f'{str(curr_time.year)}_{str(curr_time.month)}_{str(curr_time.day)}_' \
@@ -112,7 +117,8 @@ class Generate_Dataset(Node):
                             self.actions.sprint_key, self.actions.w_key, self.actions.a_key, self.actions.s_key, self.actions.d_key, 
                             self.actions.mouse_x_position, self.actions.mouse_y_position]],
                            columns=['Image', 'right_click', 'left_click', 'jump_key', 'crouch_key', 'sprint_key', 'w', 'a', 's', 'd', 'mouse_x', 'mouse_y'])
-        self.dataset_log = pd.concat([self.dataset_log, row])
+
+        self.dataset_log = pd.concat([self.dataset_log, row], ignore_index=True)
 
         # save image
         dim = (self.image_width, self.image_height)
@@ -120,14 +126,14 @@ class Generate_Dataset(Node):
         image_saved = Image_pil.fromarray(img_rgb_resize)
         image_saved.save(self.data_path + '/IMG/' + image_name)
         self.counter += 1
-        print(f'Image Saved: {self.counter}', end="\r")
-
+        print(f'Image Saved: {self.counter}')
 
     # Callback Function to receive the cmd values
     def actionsMsgCallback(self , message):
         self.actions = message
 
-        self.begin_actions = True
+        if not self.begin_actions:
+            self.begin_actions = True
        
 
     # Callback function to receive image
@@ -138,8 +144,10 @@ class Generate_Dataset(Node):
                 config (dict): Dictionary with the configuration.
         """
         self.img_rgb = self.bridge.imgmsg_to_cv2(message, "passthrough")
-
-        self.begin_img = True
+        
+        # Prevents from repeating setting to true
+        if not self.begin_img:
+            self.begin_img = True
 
 
     def save_dataset(self , info_data, data_path, dataset_log):
