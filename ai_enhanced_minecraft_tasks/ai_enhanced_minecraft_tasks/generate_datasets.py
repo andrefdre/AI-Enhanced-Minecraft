@@ -42,6 +42,8 @@ class Generate_Dataset(Node):
         minecraft_path = os.environ.get('Minecraft_Path')
         self.data_path = f'{minecraft_path}/datasets/' + "-" + datetime.now().strftime("%d-%m-%Hh%Mm%Ss")
 
+        node = ServiceClientNode()
+
         # If the path does not exist, create it
         if not os.path.exists(self.data_path):
             os.makedirs(self.data_path)
@@ -95,7 +97,7 @@ class Generate_Dataset(Node):
             print("\n\nYou have pressed q[uit]: are you sure you want to close"
                                 " WITHOUT saving the dataset? (type 'yes' TO DISCARD the dataset,"
                                 " type 'no' or 'save' to SAVE the dataset): ")
-            confirmation = self.get_user_input()
+            confirmation = node.get_user_input()
             if confirmation == "yes":
                 shutil.rmtree(self.data_path)
                 print("All done, exiting ROS...")
