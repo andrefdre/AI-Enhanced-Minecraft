@@ -58,7 +58,7 @@ def main():
     parser.add_argument('-lr_gamma', '--lr_gamma', type=float, default=0.5,
                         help='Decay of the learning rate after step size')
     parser.add_argument('-wd', '--weight_decay', type=float, default=0, help='L2 regularizer')
-    parser.add_argument('-nw', '--num_workers', type=int, default=0, 
+    parser.add_argument('-nw', '--num_workers', type=int, default=4, 
                         help='How many subprocesses to use for data loading. 0 means that the data will be loaded in the main process.')
     parser.add_argument('-pff', '--prefetch_factor', type=int, default=2, 
                         help='Number of batches loaded in advance by each worker')

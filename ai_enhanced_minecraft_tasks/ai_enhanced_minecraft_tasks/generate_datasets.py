@@ -92,16 +92,17 @@ class Generate_Dataset(Node):
             exit(0)
 
         if key == ord('q'):
-            confirmation = input("\n\nYou have pressed q[uit]: are you sure you want to close"
+            print("\n\nYou have pressed q[uit]: are you sure you want to close"
                                 " WITHOUT saving the dataset? (type 'yes' TO DISCARD the dataset,"
                                 " type 'no' or 'save' to SAVE the dataset): ")
+            confirmation = self.get_user_input()
             if confirmation == "yes":
                 shutil.rmtree(self.data_path)
                 print("All done, exiting ROS...")
             elif confirmation in {'no', 'save'}:
                 self.save_dataset(self.info_data, self.data_path, self.dataset_log)
                 exit(0)
-        
+
         #TODO add condition to verify if the camera roated
         # This stops capturing images that don't add information to the network
         if self.actions.right_click == 0 and self.actions.left_click == 0 and self.actions.jump_key == 0 and self.actions.crouch_key == 0 and self.actions.sprint_key == 0 and self.actions.w_key == 0 and self.actions.a_key == 0 and self.actions.s_key == 0 and self.actions.d_key == 0:
