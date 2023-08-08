@@ -20,9 +20,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'capture_keys = ai_enhanced_minecraft_bringup.capture_keys:main',
-            'fabric_api = ai_enhanced_minecraft_bringup.fabric_api:main',
-            'get_inventory = ai_enhanced_minecraft_bringup.get_inventory:main',
+            'pose_api = ai_enhanced_minecraft_bringup.pose_api:main',
+            'image_api = ai_enhanced_minecraft_bringup.image_api:main',
+            'actions_api = ai_enhanced_minecraft_bringup.actions_api:main',
+            'inventory_api = ai_enhanced_minecraft_bringup.inventory_api:main',
         ],
     },
 )

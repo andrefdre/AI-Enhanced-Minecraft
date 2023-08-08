@@ -21,9 +21,7 @@ class GetInventory(Node):
     def timer_callback(self):
         try:    
             response = requests.get('http://localhost:8070/player_inv')
-            # print(response.content)
         except:
-            # print("Error connecting to server")
             print(f"Received an error response: {response.status_code} - {response.text}")
 
         # New data received in json
