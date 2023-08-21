@@ -140,7 +140,7 @@ def main():
     ########################################
     # Dataset                              #
     ########################################
-    if args['model'] == 'LSTM()':
+    if 'LSTM' in args['model']:
         print(f'{Fore.BLUE}You are training a LSTM model so shuffle is disabled {Style.RESET_ALL} ')
         shuffle = False
     else:
