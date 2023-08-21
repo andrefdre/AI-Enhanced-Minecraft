@@ -81,6 +81,8 @@ class Nvidia_Model(nn.Module):
 
         out = self.fc3(out)
 
+        out = self.relu(out[0:9])
+
         # print('fc2 out = ' + str(out.shape))
         # exit(0)
         return out

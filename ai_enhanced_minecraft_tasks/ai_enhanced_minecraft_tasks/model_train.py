@@ -29,6 +29,7 @@ from .src.utils import SaveGraph , SaveModel , LoadModel
 from .src.visualization import DataVisualizer
 from .src.dataset import Dataset
 from .models.image_2_keys import Nvidia_Model
+from .loss_functions.key_presses_loss import KeysPressesLoss
 
 # Main code
 def main():
@@ -215,7 +216,7 @@ def main():
         for batch_idx, (image_t, label_t) in tqdm(enumerate(loader_train), total=len(loader_train), desc=Fore.GREEN + 'Training batches for Epoch ' + str(idx_epoch) +  Style.RESET_ALL):
             # Move the data to the GPU if one exists
             image_t = image_t.to(device=device, dtype=torch.float)
-            label_t = label_t.to(device=device, dtype=torch.float).unsqueeze(1)
+            label_t = label_t.to(device=device, dtype=torch.float)
 
             # Apply the network to get the predicted ys
             label_t_predicted = model(image_t)
