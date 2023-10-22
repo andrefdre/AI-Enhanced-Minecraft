@@ -60,8 +60,7 @@ TTo use this code, first add the next line in the bashrc or your shell configura
 
   ```
 #AI-Enhanced-Minecraft
-export AI_ENHANCED_MINECRAFT=/home/andre/ai_enhanced_minecraft
-export PYTHONPATH="$PYTHONPATH:${HOME}/ros2_ws/src/AI-Enhanced-Minecraft"
+export Minecraft_Path="${HOME}/Minecraft_AI"
   ```
 Replace the path to where all the datasets are stored in your computer. 
 

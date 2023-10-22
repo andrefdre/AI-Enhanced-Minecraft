@@ -13,11 +13,10 @@ from cv_bridge import CvBridge # Package to convert between ROS and OpenCV Image
 
 class Image_API(Node):
     def __init__(self):
-        super().__init__('minecraft_api')
+        super().__init__('image_api')
         self.publisher_ = self.create_publisher(Image, 'minecraft_frame', 10)
         self.timer = self.create_timer(0.1, self.timer_callback)
         self.image = None
-        self.window = cv2.namedWindow('image', cv2.WINDOW_NORMAL)
         self.bridge = CvBridge()
         self.connected_once = False
 
@@ -38,7 +37,6 @@ class Image_API(Node):
             except:
                 print("Cannot establish initial connection to the server. Retrying in 1 second.")
                 time.sleep(1)
-
 
         # While we have connection to the server
         while lost_connection == False:
@@ -73,7 +71,6 @@ class Image_API(Node):
             except:
                 print("Trying to re-establish connection to the server...")
                 time.sleep(1)
-
 
 def main():
     rclpy.init()
